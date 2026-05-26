@@ -23,21 +23,28 @@ with st.sidebar.form("add_data_form"):
         pm25 = st.number_input("PM2.5", value=10.0)
     with col2:
         press = st.number_input("气压 (hPa)", value=1013.25)
+        dew_pt = st.number_input("露点温度 (°C)", value=None, format="%.1f", placeholder="留空自动计算")
+        hi = st.number_input("热指数 (°C)", value=None, format="%.1f", placeholder="留空自动计算")
+        ws = st.number_input("风速 (m/s)", value=None, format="%.1f", placeholder="留空")
+        wd = st.number_input("风向 (°)", value=None, min_value=0, max_value=360, format="%.0f", placeholder="留空")
+    with col2:
         lat = st.number_input("纬度", value=31.23, format="%.6f")
         lon = st.number_input("经度", value=121.47, format="%.6f")
     
     submit_button = st.form_submit_button("保存数据")
     if submit_button:
-        db.add_record(device_id, temp, hum, pm25, press, lat, lon)
+        db.add_record(device_id, temp, hum, pm25, press, dew_pt if dew_pt != 0 else None, hi if hi != 0 else None, ws if ws != 0 else None, wd if wd != 0 else None, lat, lon)
         st.sidebar.success("记录已保存！")
         st.rerun()
 
 # 主界面：数据概览
 stats = db.get_stats()
-c1, c2, c3 = st.columns(3)
+c1, c2, c3, c4, c5 = st.columns(5)
 c1.metric("总记录数", f"{int(stats['count'])}")
 c2.metric("平均温度", f"{stats['avg_temp']:.2f} °C")
 c3.metric("平均湿度", f"{stats['avg_hum']:.2f} %")
+c4.metric("平均气压", f"{stats.get('avg_pressure', 0):.1f} hPa")
+c5.metric("平均露点", f"{stats.get('avg_dew_point', 0):.1f} °C")
 
 # 获取数据
 df = db.fetch_all_data()

@@ -2,8 +2,11 @@
 
 - [x] 完成 PostgreSQL 数据库环境准备及数据迁移
 - [x] 安装必要依赖 (`psycopg2-binary`, `python-dotenv`)
-- [ ] 修改 `backend/database.py`：配置 SQLAlchemy 使用 `.env` 中的 `DATABASE_URL`
+- [x] 修改 `backend/database.py`：配置 SQLAlchemy 使用 `.env` 中的 `DATABASE_URL`
 - [ ] 修改根目录 `database.py`：将 `sqlite3` 替换为 `sqlalchemy` 以匹配生产环境
 - [ ] 验证 FastAPI 后端连接状态
 - [ ] 验证 Streamlit 前端数据读取及写入功能
 - [ ] 移除或归档旧的 `Main.db` 文件
+- [ ] 执行迁移脚本 `migrations/002_add_time_dimension_fields.sql`
+- [x] AI 时间维度升级：新增 dew_point, heat_index, wind_speed, wind_direction 参数
+- [x] 实现气压倾向、温度变化率、露点差、热指数、连续异常、多参数协同趋势六项分析
