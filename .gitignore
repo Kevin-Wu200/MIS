@@ -1,0 +1,29 @@
+# OS / IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Dependencies and local caches
+node_modules/
+venv/
+.pytest_cache/
+coverage/
+htmlcov/
+
+# Python artifacts
+__pycache__/
+*.py[cod]
+*.so
+.Python
+
+# Agents Skills
+.agents/
+AGENTS.md
+skills-lock.json
+
+# TODOList
+TODOList/
